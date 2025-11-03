@@ -1,0 +1,290 @@
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
+#div1 {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-bottom: 50px;
+}
+
+#div1>p {
+    text-align: center;
+    margin: 0px;
+}
+
+#div1>button {
+    border: none;
+    background-color: transparent;
+    margin: 0px;
+}
+
+#div2 {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+#panel {
+    width: 5%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#settings {
+    margin: 10px;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+#settings>button {
+    border: none;
+    background-color: transparent;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 130px;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    padding-left: 0px;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0px 0px 1px lightgray;
+}
+
+#menu>button {
+    border: none;
+    margin: 0px;
+    background-color: transparent;
+}
+
+#div2 {
+    flex: 1;
+}
+
+#dashboard {
+    display: flex;
+
+    flex: 1;
+    margin: 10px;
+    margin-left: 15px;
+    margin-top: 5px;
+    border-radius: 20px;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0px 0px 1px lightgray;
+    background-color: rgb(252, 252, 252);
+    overflow: hidden;
+}
+
+input,
+textarea {
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+
+#filter {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 50px;
+    margin-left: 70px;
+    margin-bottom: 0px;
+    width: 20%;
+}
+
+#pages {
+    background-color: transparent;
+    display: flex;
+    justify-self: flex-end;
+    justify-content: center;
+    position: fixed;
+    bottom: 5%;
+    right: 12%;
+}
+
+#postjob {
+    justify-self: flex-end;
+    position: fixed;
+    right: 11%;
+    bottom: 35%;
+}
+
+#companies {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+[type=submit] {
+    background-color: rgb(17, 81, 255);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 1px lightgray;
+    align-self: center;
+}
+
+#cancel {
+    background-color: rgb(255, 17, 92);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 1px lightgray;
+    align-self: center;
+}
+
+#edit {
+    background-color: rgb(255, 255, 100);
+
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 1px lightgray;
+    align-self: center;
+}
+
+#createjob {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    margin-left: 100px;
+    margin-right: 100px;
+    gap: 12px;
+}
+#new {
+    background-color: rgb(114, 255, 196);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 1px lightgray;
+    align-self: center;
+}
+#reminder {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 100px;
+    margin-bottom: 0px;
+    margin-left: 100px;
+    margin-right: 100px;
+    gap: 12px;
+}
+
+li {
+    display: block;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    width: 80%;
+    align-self: center;
+    box-shadow: 0px 0px 3px lightgray;
+}
+
+li>p {
+    margin-left: 50px;
+
+}
+
+li>div {
+    margin-left: 50px;
+
+}
+
+li>button {
+
+    margin-left: 680px;
+
+    margin-bottom: 10px;
+}
+
+li>div>button {
+    margin-bottom: 10px;
+}
+
+.files {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 3px lightgray;
+    margin: 70px;
+    padding: 40px;
+    align-items: center;
+    gap: 50px;
+}
+
+.files>label {
+    font-weight: bold;
+    font-size: large;
+}
+
+.files>input {
+    margin-bottom: 80px;
+    margin-top: 80px;
+    align-self: center;
+}
+
+.files>button {
+    justify-self: flex-end;
+    background-color: rgb(17, 81, 255);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 1px lightgray;
+    align-self: center;
+}
+
+.files>button>a {
+    text-decoration: none;
+    color: white
+}
+#carrerUpdate {
+    padding : 10px;
+    gap : 5px;
+    display: flex;
+    flex-direction: column;
+    overflow: flex;
+}
+#carrerupdate > li {
+    padding : 5px;
+}
+#carrerupdate > li > form {
+    padding : 30px;
+}
+#carrerupdate > li > form > input {
+    margin : 10px;
+}
+#carrerupdate > li > form > Button {
+    margin : 10px;
+}
+#options {
+    margin-top : 200px;
+    margin-left : 500px;
+    display : flex;
+    flex-direction : column;
+    gap : 20px;
+}
