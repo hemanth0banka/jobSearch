@@ -1,15 +1,15 @@
 const service = require('../service/uploads')
-const files = async (req, res) => {
+const files = async (req, res,next) => {
     try {
         const userId = req.user.userId
         const r = await service.files(userId)
         res.status(200).send(r)
     }
     catch (e) {
-        res.status(500).send(e)
+        next(e)
     }
 }
-const uploadFile = async (req, res) => {
+const uploadFile = async (req, res,next) => {
     try {
         const file = req.file
         const { filetype, filename } = req.body
@@ -18,7 +18,7 @@ const uploadFile = async (req, res) => {
         res.status(200).send(url)
     }
     catch (e) {
-        res.status(500).send('Internal Server Error')
+        next(e)
     }
 }
 module.exports = { files, uploadFile }

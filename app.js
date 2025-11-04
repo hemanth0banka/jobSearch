@@ -10,6 +10,7 @@ const companies = require('./routes/companies.js')
 const reminder = require('./routes/reminder.js')
 const uploads = require('./routes/uploads.js')
 const tokenValidator = require('./middlewares/tokenValidator.js')
+const errorHandler = require('./middlewares/errorHandler.js')
 const port = process.env.PORT || 3000;
 require('./jobs/cronJob.js')
 require('./model/model.js')
@@ -28,9 +29,12 @@ app.use('/api/applied', appliedjobs)
 app.use('/api/companies', companies)
 app.use('/api/reminder', reminder)
 app.use('/api/uploads', uploads)
-app.use((req, res) => {
-    res.status(404).send('Page Not Found...')
+app.use((req, res, next) => {
+    const error = new Error('Page not found');
+    error.statusCode = 404;
+    next(error);
 });
+app.use(errorHandler);
 (async () => {
     try {
         await sequelize.sync({ alter: true })

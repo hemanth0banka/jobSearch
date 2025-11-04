@@ -1,6 +1,6 @@
 const users = require('../model/users.js')
 const userservices = require('../service/userProfile.js')
-const user = async (req, res) => {
+const user = async (req, res, next) => {
     try {
         const record = await users.findOne({
             where: {
@@ -11,10 +11,10 @@ const user = async (req, res) => {
         res.status(200).send(record)
     }
     catch (e) {
-        res.status(500).send(`Internal server Error`)
+        next(e)
     }
 }
-const userdata = async (req, res) => {
+const userdata = async (req, res, next) => {
     try {
         const userdetails = req.user
         const r = await userservices.userData(userdetails)
@@ -22,12 +22,14 @@ const userdata = async (req, res) => {
     }
     catch (e) {
         if (e.message === 'User not found') {
-            return res.status(404).send('User not found');
+            const error = new Error('User not found')
+            error.statusCode = 404
+            return next(error)
         }
-        res.status(500).send('Internal Server Error');
+        next(e)
     }
 }
-const profileUpdate = async (req, res) => {
+const profileUpdate = async (req, res, next) => {
     try {
         const userdetails = req.user
         const { username, email, phone } = req.body
@@ -36,12 +38,14 @@ const profileUpdate = async (req, res) => {
     }
     catch (e) {
         if (e.message === 'User not found') {
-            return res.status(404).send('User not found');
+            const error = new Error('User not found')
+            error.statusCode = 404
+            return next(error)
         }
-        res.status(500).send('Internal Server Error')
+        next(e)
     }
 }
-const getuserCarrer = async (req, res) => {
+const getuserCarrer = async (req, res, next) => {
     try {
         const userdetails = req.user
         const u = await userservices.userCarrer(userdetails)
@@ -51,11 +55,11 @@ const getuserCarrer = async (req, res) => {
         res.status(200).send(u)
     }
     catch (e) {
-        res.status(500).send(e)
+        next(e)
     }
 }
 
-const carrerUpdate = async (req, res) => {
+const carrerUpdate = async (req, res, next) => {
     try {
         const userdetails = req.user
         const { currentRole, desireRole, skills, experienceYears, education, schoolGrade, InterGrade, bachelorGrade, postGrade } = req.body
@@ -63,20 +67,19 @@ const carrerUpdate = async (req, res) => {
         res.status(200).send(r)
     }
     catch (e) {
-        res.status(500).send(e)
+        next(e)
     }
 }
 
-const deleteAccount = async (req, res) => {
+const deleteAccount = async (req, res, next) => {
     try {
         const { userId } = req.user
         const r = await userservices.deleteAccount(userId)
         res.status(200).send(r)
     }
     catch (e) {
-        console.log(e)
-        res.status(500).send('Internal Server Error')
+        next(e)
     }
 }
 
-module.exports = { user, userdata, profileUpdate, carrerUpdate, getuserCarrer ,deleteAccount}
+module.exports = { user, userdata, profileUpdate, carrerUpdate, getuserCarrer, deleteAccount }

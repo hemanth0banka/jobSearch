@@ -10,7 +10,9 @@ const validate = (req, res, next) => {
         next()
     }
     catch (e) {
-        res.status(401).send('Invalid token');
+        const error = new Error('Invalid token')
+        error.statusCode = 401
+        next(error)
     }
 }
 module.exports = { validate }

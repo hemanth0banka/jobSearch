@@ -1,5 +1,5 @@
 const service = require('../service/myJobApplications.js')
-const applied = async (req, res) => {
+const applied = async (req, res, next) => {
     try {
         const { userId } = req.user
         const page = req.query.page
@@ -7,21 +7,20 @@ const applied = async (req, res) => {
         res.status(200).send(records)
     }
     catch (e) {
-        res.status(500).send('Internal Server Error')
+        next(e)
     }
 }
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
     try {
         const { id, data } = req.body
         const r = await service.editNote(id, data)
         res.status(200).send('updated')
     }
     catch (e) {
-        console.log(e)
-        res.status(500).send('Internal Server Error')
+        next(e)
     }
 }
-const remove = async (req, res) => {
+const remove = async (req, res, next) => {
     try {
         const id = req.params.id
         const msg = await service.removeApplication(id)
@@ -30,8 +29,7 @@ const remove = async (req, res) => {
         }
     }
     catch (e) {
-        console.log(e)
-        res.status(500).send('Internal Server Error')
+        next(e)
     }
 }
 module.exports = { applied, remove, edit }
