@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const path = require('path');
 const sequelize = require('./util/db.js');
 const signInUp = require('./routes/signInUp.js')
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 require('./jobs/cronJob.js')
 require('./model/model.js')
 app.use(express.json());
+app.use(express.cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, 'public', 'pages', 'login.html'))
