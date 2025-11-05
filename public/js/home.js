@@ -222,11 +222,13 @@ function pno(obj, callback) {
     const { previous, current, next, last } = obj
     const first = document.createElement('button')
     first.innerHTML = '1'
+    first.id = 'butto'
     first.addEventListener('click', () => {
         callback(1)
     })
     const prev = document.createElement('button')
     prev.innerHTML = '<<'
+    prev.id = 'butto'
     prev.addEventListener('click', () => {
         callback(previous)
     })
@@ -238,11 +240,13 @@ function pno(obj, callback) {
     })
     const nex = document.createElement('button')
     nex.innerHTML = '>>'
+    nex.id = 'butto'
     nex.addEventListener('click', () => {
         callback(next)
     })
     const las = document.createElement('button')
     las.innerHTML = last
+    las.id = 'butto'
     las.addEventListener('click', () => {
         callback(last)
     })
