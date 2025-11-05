@@ -1,9 +1,10 @@
 const authentication = require('../authentication/loginAuthentication.js')
 const register = require('../authentication/userRegistration.js')
+const path = require('path')
 const registration = async (req, res, next) => {
     try {
         const { username, email, phone, password } = req.body
-        const process = await register(username, email, phone, password)
+        const process = await register.registration(username, email, phone, password)
         if (process === 'User Found') {
             const error = new Error('User already exists with this email')
             error.statusCode = 400
@@ -37,5 +38,41 @@ const userAuthentication = async (req, res, next) => {
         next(e)
     }
 }
+const forgotpassword = async (req, res, next) => {
+    try {
+        const email = req.body.email
+        const r = await register.forgotpassword(email)
+        return res.status(200).send('reset link sent')
+    }
+    catch (e) {
+        next(e)
+    }
+}
 
-module.exports = { registration, userAuthentication }
+const linkvalidation = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const r = await register.linkvalidate(id)
+        if (r === 'link expired') {
+            const error = new Error('link expired')
+            error.statusCode = 400
+            next(error)
+        }
+        res.status(200).sendFile(path.join(__dirname, '../views/reset.html'))
+    }
+    catch (e) {
+        next(e)
+    }
+}
+const updatePassword = async (req, res, next) => {
+    try {
+        const { password } = req.body
+        const { id } = req.params
+        const r = await register.updatePassword(id, password)
+        res.status(200).send('password updated')
+    }
+    catch (e) {
+        next(e)
+    }
+}
+module.exports = { registration, userAuthentication, forgotpassword, linkvalidation, updatePassword }

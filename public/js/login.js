@@ -9,8 +9,8 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         window.location.href = 'http://localhost:1000/home'
     }
     catch (e) {
-        if (e.status == 404) alert(e.response.data)
-        if(e.status == 400) alert(e.response.data)
+        if (e.status == 404) alert(e.response.data.message)
+        if(e.status == 400) alert(e.response.data.message)
         console.log(e)
     }
 })

@@ -1,5 +1,6 @@
 let userId
 let username
+let email
 window.addEventListener('load', async () => {
     try {
         const res = await axios.get('/api/user', {
@@ -9,7 +10,9 @@ window.addEventListener('load', async () => {
         })
         userId = res.data.userId
         username = res.data.username
+        email = res.data.email
         document.querySelector('#accountname').innerHTML = username
+        home()
     }
     catch (e) {
         console.log(e)
@@ -19,6 +22,63 @@ window.addEventListener('load', async () => {
     }
 
 })
+async function home() {
+    try {
+        const res = await axios.get('/api/user/status', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        document.querySelector('#dashboard').innerHTML = ''
+        const div0 = document.createElement('div')
+        div0.id = 'homie'
+        const div = document.createElement('div')
+        const div1 = document.createElement('div')
+        div1.id = 'ele2'
+        const h1 = document.createElement('h1')
+        h1.innerHTML = `Welcome ${username}`
+        div1.appendChild(h1)
+        div0.appendChild(div)
+        div0.appendChild(div1)
+        div.id = 'elements'
+        const label1 = document.createElement('label')
+        label1.innerHTML = `My job Applications : `
+        const li1 = document.createElement('li')
+        li1.innerHTML = res.data.appliedJobs
+        const label2 = document.createElement('label')
+        label2.innerHTML = `Carrer : `
+        const li2 = document.createElement('li')
+        li2.innerHTML = res.data.carrer ? 'updated' : 'not updated'
+        const label3 = document.createElement('label')
+        label3.innerHTML = `Documents : `
+        const li3 = document.createElement('li')
+        li3.innerHTML = res.data.document ? 'uploaded' : 'not uploaded'
+        const label4 = document.createElement('label')
+        label4.innerHTML = `My job posts : `
+        const li4 = document.createElement('li')
+        li4.innerHTML = res.data.posted
+        const label5 = document.createElement('label')
+        label5.innerHTML = `Active Reminders : `
+        const li5 = document.createElement('li')
+        li5.innerHTML = res.data.reminder
+        div.appendChild(label1)
+        div.appendChild(li1)
+        div.appendChild(label2)
+        div.appendChild(li2)
+        div.appendChild(label3)
+        div.appendChild(li3)
+        div.appendChild(label4)
+        div.appendChild(li4)
+        div.appendChild(label5)
+        div.appendChild(li5)
+        document.querySelector('#dashboard').appendChild(div0)
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+document.querySelector('#home').addEventListener('click', home)
+
 document.querySelector('#profile').addEventListener('click', async (event) => {
     event.preventDefault()
     try {
@@ -649,6 +709,7 @@ document.querySelector('#upload').addEventListener('click', async () => {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
+                alert('document uploaded')
                 return res.data
             }
             catch (e) {
@@ -776,7 +837,17 @@ document.querySelector('#setting').addEventListener('click', () => {
     div.id = 'options'
     const forgot = document.createElement('button')
     forgot.innerHTML = 'Forgotten Password'
-    forgot.addEventListener('click', () => { })
+    forgot.addEventListener('click', async () => {
+        try {
+            await axios.post('/user/forgot', { email })
+            alert('your password reset link was send to your email')
+            localStorage.removeItem('token')
+            window.location.href = 'http://localhost:1000/'
+        }
+        catch (e) {
+            console.log(e)
+        }
+    })
     forgot.type = 'submit'
     const del = document.createElement('button')
     del.innerHTML = 'Delete Account'

@@ -15,8 +15,8 @@ const errorHandler = require('./middlewares/errorHandler.js')
 const port = process.env.PORT || 3000;
 require('./jobs/cronJob.js')
 require('./model/model.js')
+app.use(cors());
 app.use(express.json());
-app.use(express.cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, 'public', 'pages', 'login.html'))

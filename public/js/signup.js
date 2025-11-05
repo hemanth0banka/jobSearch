@@ -17,7 +17,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         window.location.href = 'http://localhost:1000/'
     }
     catch (e) {
-        if (e.status == 400) alert(e.response.data)
+        if (e.status == 400) alert(e.response.data.message)
         console.log(e)
     }
 })

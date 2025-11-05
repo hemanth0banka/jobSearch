@@ -1,4 +1,9 @@
 const users = require('../model/users.js')
+const userCarrer = require('../model/userCarrer.js')
+const reminders = require('../model/reminders.js')
+const jobApplication = require('../model/JobApplications.js')
+const documents = require('../model/documents.js')
+const companies = require('../model/companies.js')
 const userservices = require('../service/userProfile.js')
 const user = async (req, res, next) => {
     try {
@@ -6,7 +11,7 @@ const user = async (req, res, next) => {
             where: {
                 userId: req.user.userId
             },
-            attributes: ['userId', 'username']
+            attributes: ['userId', 'username', 'email']
         })
         res.status(200).send(record)
     }
@@ -26,6 +31,35 @@ const userdata = async (req, res, next) => {
             error.statusCode = 404
             return next(error)
         }
+        next(e)
+    }
+}
+const userStatus = async (req, res, next) => {
+    try {
+        const a = await userCarrer.findOne({
+            where: { userUserId: req.user.userId }
+        })
+        const b = await reminders.findAll({
+            where: { userUserId: req.user.userId }
+        })
+        const c = await jobApplication.findAll({
+            where: { userUserId: req.user.userId }
+        })
+        const d = await documents.findOne({
+            where: { userUserId: req.user.userId }
+        })
+        const f = await companies.findAll({
+            where: { userUserId: req.user.userId }
+        })
+        res.status(200).json({
+            carrer: a ? true : false,
+            reminder: b.length,
+            appliedJobs: c.length,
+            document: d ? true : false,
+            posted: f.length
+        })
+    }
+    catch (e) {
         next(e)
     }
 }
@@ -82,4 +116,4 @@ const deleteAccount = async (req, res, next) => {
     }
 }
 
-module.exports = { user, userdata, profileUpdate, carrerUpdate, getuserCarrer, deleteAccount }
+module.exports = { user, userdata, userStatus, profileUpdate, carrerUpdate, getuserCarrer, deleteAccount }

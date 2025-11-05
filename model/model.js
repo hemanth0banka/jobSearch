@@ -4,6 +4,7 @@ const applications = require('./JobApplications.js')
 const companies = require('../model/companies.js')
 const documents = require('../model/documents.js')
 const reminders = require('../model/reminders.js')
+const request = require('../model/request.js')
 
 users.hasOne(carrer)
 carrer.belongsTo(users)
@@ -29,4 +30,7 @@ reminders.belongsTo(users)
 applications.hasMany(reminders)
 reminders.belongsTo(applications)
 
-module.exports = { users, carrer, applications, companies, documents }
+users.hasMany(request)
+request.belongsTo(users)
+
+module.exports = { users, carrer, applications, companies, documents, request }
