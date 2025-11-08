@@ -90,7 +90,7 @@ const updatePassword = async (id, p) => {
                 attributes: ['email']
             }
         })
-        const password = await bcrypt.hash(p, 10)
+        const password = await bcrypt.hash(p, Number(process.env.salt))
         await users.update({ password }, {
             where: {
                 email: req.user.email

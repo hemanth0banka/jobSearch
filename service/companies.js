@@ -13,6 +13,7 @@ const allCompanies = async (p, items, userId) => {
         if (items.salary != '') obj.salary = items.salary
         const records = await companies.findAndCountAll({
             where: obj,
+            order: [['id', 'DESC']],
             include: {
                 model: applies,
                 attributes: ['userUserId']
