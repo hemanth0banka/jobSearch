@@ -227,7 +227,7 @@ function pno(obj, callback) {
         callback(1)
     })
     const prev = document.createElement('button')
-    prev.innerHTML = '<<'
+    prev.innerHTML = '<'
     prev.id = 'butto'
     prev.addEventListener('click', () => {
         callback(previous)
@@ -239,7 +239,7 @@ function pno(obj, callback) {
         callback(current)
     })
     const nex = document.createElement('button')
-    nex.innerHTML = '>>'
+    nex.innerHTML = '>'
     nex.id = 'butto'
     nex.addEventListener('click', () => {
         callback(next)
@@ -277,7 +277,6 @@ async function companies(page) {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-        console.log(data)
         document.querySelector('ul').innerHTML = ''
         document.querySelector('#pages').innerHTML = ''
         pno(data.data, companies)
