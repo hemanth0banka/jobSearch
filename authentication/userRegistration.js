@@ -11,7 +11,11 @@ const registration = async (username, email, phone, password) => {
                 email
             }
         })
-        if (user) return 'User Found'
+        if (user) {
+            const err = new Error('email already in use')
+            err.statusCode = 400
+            throw err
+        }
         const hashed = await bcrypt.hash(password, Number(process.env.salt))
         await users.create({ username, email, phone, password: hashed })
         return 'Registered Successfully'
@@ -67,6 +71,7 @@ const linkvalidate = async (id) => {
                 url: id
             }
         })
+        if (!r) return 'link expired'
         if (r.opened === true) return 'link expired'
         if (new Date(r.created) < new Date(Date.now() - LINK_EXPIRY_TIME)) return 'link expired'
         r.opened = true

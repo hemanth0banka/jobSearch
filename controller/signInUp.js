@@ -5,14 +5,7 @@ const registration = async (req, res, next) => {
     try {
         const { username, email, phone, password } = req.body
         const process = await register.registration(username, email, phone, password)
-        if (process === 'User Found') {
-            const error = new Error('User already exists with this email')
-            error.statusCode = 400
-            return next(error)
-        }
-        else {
-            res.status(200).send(process)
-        }
+        res.status(200).send(process)
     }
     catch (e) {
         next(e)
